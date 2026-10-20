@@ -1,0 +1,1255 @@
+# PROMPT: THU THẬP, LÀM SẠCH, PHÂN TÍCH VÀ TRỰC QUAN HÓA DỮ LIỆU AI CỦA ĐẠI HỌC THANH HOA
+
+## 1. VAI TRÒ
+
+Bạn là một **AI Data Researcher + Data Analyst + Web Data Engineer**, có nhiệm vụ xây dựng một bộ dữ liệu phục vụ nghiên cứu về năng lực AI của:
+
+**Tsinghua University (Đại học Thanh Hoa – 清华大学), Trung Quốc.**
+
+Trọng tâm nghiên cứu:
+
+* Artificial Intelligence
+* Machine Learning
+* Deep Learning
+* Large Language Models (LLM)
+* Natural Language Processing (NLP)
+* Generative AI
+* Multimodal AI
+* Computer Vision
+* Reinforcement Learning
+* AI Agents
+* AI for Science
+* Robotics
+* AI Systems
+
+Mục tiêu cuối cùng là tạo ra một **dataset sạch, có cấu trúc, có nguồn xác minh**, có thể dùng cho:
+
+* Phân tích dữ liệu.
+* Machine Learning.
+* AI/RAG.
+* Knowledge Graph.
+* So sánh năng lực nghiên cứu AI.
+* Trực quan hóa dữ liệu.
+* Báo cáo/đồ án.
+
+---
+
+# 2. YÊU CẦU THU THẬP DỮ LIỆU
+
+## 2.1. Công cụ thu thập
+
+Ưu tiên sử dụng:
+
+* `requests`
+* `BeautifulSoup`
+* `Selenium/Playwright` chỉ khi website yêu cầu JavaScript và không có API phù hợp.
+* API mở.
+* Các thư viện Python phù hợp cho API học thuật.
+
+Không được thu thập dữ liệu bằng cách sao chép thủ công nếu có thể tự động hóa.
+
+Ví dụ:
+
+```text
+requests
+BeautifulSoup
+pandas
+json
+re
+urllib
+```
+
+Có thể sử dụng API từ các nguồn học thuật mở như:
+
+* OpenAlex
+* Crossref
+* Semantic Scholar nếu API cho phép
+* DBLP
+* arXiv
+* các API học thuật công khai khác
+
+---
+
+# 3. NGUỒN DỮ LIỆU
+
+Ưu tiên nguồn theo thứ tự:
+
+### Mức 1 – Nguồn chính thức
+
+* Website chính thức của Tsinghua University.
+* Các khoa.
+* Viện nghiên cứu.
+* AI research center.
+* Laboratory.
+* Trang giảng viên.
+* Trang project.
+* Trang publication.
+
+### Mức 2 – Cơ sở dữ liệu học thuật
+
+* OpenAlex
+* Crossref
+* DBLP
+* arXiv
+* Semantic Scholar
+
+### Mức 3 – Nguồn bổ sung
+
+* Google Scholar hoặc nguồn tương đương nếu phù hợp.
+* Các bảng xếp hạng học thuật.
+* Báo chí uy tín.
+
+Không sử dụng website không rõ nguồn gốc làm nguồn chính.
+
+---
+
+# 4. THU THẬP THÔNG TIN TRƯỜNG
+
+Thu thập:
+
+```text
+university_name
+chinese_name
+short_name
+country
+city
+founded_year
+official_website
+description
+faculties
+departments
+research_centers
+research_labs
+ai_programs
+source_url
+source_name
+accessed_date
+```
+
+---
+
+# 5. THU THẬP HỆ SINH THÁI AI
+
+Tìm các:
+
+* AI research institute
+* AI laboratory
+* NLP laboratory
+* Machine Learning laboratory
+* Computer Vision laboratory
+* Robotics laboratory
+* AI Systems laboratory
+* LLM research group
+* Generative AI research group
+
+Các trường:
+
+```text
+research_group_id
+research_group_name
+department
+research_area
+research_topics
+researchers
+projects
+website
+source_url
+```
+
+---
+
+# 6. THU THẬP NHÀ NGHIÊN CỨU
+
+Thu thập các nhà nghiên cứu liên quan đến AI/NLP.
+
+Các trường:
+
+```text
+researcher_id
+name
+position
+department
+research_group
+research_area
+specialization
+orcid
+personal_page
+google_scholar
+paper_count
+citation_count
+source_url
+```
+
+Không thu thập thông tin cá nhân nhạy cảm.
+
+---
+
+# 7. THU THẬP CÔNG BỐ KHOA HỌC
+
+Thu thập các publication liên quan đến AI từ khoảng:
+
+**2015 → hiện tại**
+
+Các trường:
+
+```text
+paper_id
+title
+authors
+year
+month
+research_area
+subfield
+keywords
+venue
+journal
+conference
+citation_count
+institution
+research_group
+doi
+paper_url
+code_url
+dataset_url
+source_url
+```
+
+Ưu tiên các venue:
+
+```text
+NeurIPS
+ICML
+ICLR
+ACL
+EMNLP
+NAACL
+AAAI
+IJCAI
+CVPR
+ICCV
+ECCV
+KDD
+WWW
+SIGIR
+```
+
+---
+
+# 8. TRỌNG TÂM NLP
+
+Đặc biệt thu thập dữ liệu về:
+
+* Natural Language Processing
+* Chinese NLP
+* Multilingual NLP
+* Large Language Models
+* Machine Translation
+* Text Generation
+* Information Retrieval
+* Question Answering
+* Information Extraction
+* Text Classification
+* Sentiment Analysis
+* Speech and Language
+* Multimodal Language Models
+* AI Agents
+* Reasoning
+* RAG
+
+Các trường:
+
+```text
+paper_id
+title
+year
+authors
+nlp_task
+language
+model
+dataset
+benchmark
+venue
+citation_count
+paper_url
+code_url
+```
+
+---
+
+# 9. LARGE LANGUAGE MODELS
+
+Tìm các LLM/model AI liên quan đến Tsinghua University.
+
+Thu thập:
+
+```text
+model_name
+organization
+research_group
+release_year
+model_type
+parameter_count
+language
+context_length
+training_data
+benchmark
+performance
+open_source
+github_url
+paper_url
+source_url
+```
+
+Nếu không có thông tin:
+
+```text
+NULL
+```
+
+Không được tự suy đoán.
+
+---
+
+# 10. DATASET / OPEN SOURCE
+
+Thu thập:
+
+* Dataset.
+* Benchmark.
+* Model.
+* Framework.
+* GitHub repository.
+* Demo.
+* API.
+* Research project.
+
+Các trường:
+
+```text
+project_id
+name
+type
+description
+research_group
+year
+license
+github_url
+paper_url
+dataset_url
+source_url
+```
+
+---
+
+# 11. SỬ DỤNG REQUESTS / BEAUTIFULSOUP / API
+
+Tạo pipeline:
+
+```text
+SOURCE
+   ↓
+REQUEST/API
+   ↓
+RAW DATA
+   ↓
+PARSING
+   ↓
+DATA CLEANING
+   ↓
+DATA NORMALIZATION
+   ↓
+FEATURE ENGINEERING
+   ↓
+DATA VALIDATION
+   ↓
+CSV/JSON/PARQUET
+   ↓
+EDA
+   ↓
+VISUALIZATION
+```
+
+Không lưu dữ liệu chưa xử lý chung với dữ liệu sạch.
+
+Tạo cấu trúc:
+
+```text
+project/
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── final/
+│
+├── src/
+│   ├── scraper/
+│   ├── cleaner/
+│   ├── feature_engineering/
+│   └── visualization/
+│
+├── notebooks/
+│
+├── output/
+│   ├── figures/
+│   └── reports/
+│
+└── README.md
+```
+
+---
+
+# 12. CHUẨN HÓA KIỂU DỮ LIỆU
+
+Sau khi thu thập phải chuẩn hóa:
+
+### String
+
+* Xóa khoảng trắng thừa.
+* Chuẩn hóa Unicode.
+* Chuẩn hóa chữ hoa/chữ thường khi phù hợp.
+
+### Date
+
+Chuyển về:
+
+```text
+YYYY-MM-DD
+```
+
+### Year
+
+Chuyển thành:
+
+```text
+integer
+```
+
+### Citation
+
+Chuyển thành:
+
+```text
+integer
+```
+
+### Boolean
+
+Chuẩn hóa:
+
+```text
+True / False
+```
+
+### Category
+
+Sử dụng category khi phù hợp.
+
+### URL
+
+Kiểm tra URL hợp lệ.
+
+---
+
+# 13. XỬ LÝ DỮ LIỆU THIẾU
+
+Kiểm tra:
+
+```text
+NaN
+None
+NULL
+empty string
+unknown
+```
+
+Không được tự bịa giá trị.
+
+Quy tắc:
+
+### Có thể suy luận chắc chắn
+
+→ xử lý bằng logic hợp lệ.
+
+### Có thể lấy từ nguồn khác
+
+→ bổ sung từ nguồn đáng tin cậy.
+
+### Không thể xác định
+
+→ giữ:
+
+```text
+NULL
+```
+
+Sau đó thống kê:
+
+```text
+missing_count
+missing_percentage
+```
+
+---
+
+# 14. LOẠI BỎ DỮ LIỆU TRÙNG
+
+Kiểm tra duplicate theo:
+
+```text
+paper_id
+DOI
+paper_url
+title
+researcher_id
+project_id
+```
+
+Đặc biệt xử lý trường hợp:
+
+* Một paper xuất hiện từ nhiều API.
+* Tên tác giả khác cách viết.
+* URL khác nhau nhưng cùng paper.
+
+---
+
+# 15. FEATURE ENGINEERING
+
+Không chỉ thu thập dữ liệu mà phải **tạo thêm các đặc trưng mới**.
+
+Ví dụ:
+
+### Paper
+
+```text
+paper_age
+citation_per_year
+is_top_venue
+is_nlp
+is_llm
+is_multimodal
+is_open_source
+```
+
+### Researcher
+
+```text
+career_years
+papers_per_year
+citations_per_paper
+llm_paper_count
+nlp_paper_count
+top_venue_count
+```
+
+### Research group
+
+```text
+researcher_count
+paper_count
+citation_count
+average_citations
+llm_paper_count
+nlp_paper_count
+open_source_project_count
+```
+
+### Theo năm
+
+```text
+total_papers
+ai_papers
+nlp_papers
+llm_papers
+citation_count
+open_source_projects
+researchers_count
+```
+
+---
+
+# 16. KIỂM TRA DỮ LIỆU
+
+Sau khi xử lý phải kiểm tra:
+
+```text
+Data types
+Missing values
+Duplicates
+Outliers
+Invalid URLs
+Invalid dates
+Inconsistent names
+Conflicting sources
+```
+
+Tạo:
+
+```text
+data_quality_score
+source_reliability
+verification_status
+```
+
+---
+
+# 17. PHÂN TÍCH EDA
+
+Thực hiện Exploratory Data Analysis:
+
+```text
+df.info()
+df.describe()
+df.isnull().sum()
+df.nunique()
+df.value_counts()
+```
+
+Phân tích:
+
+* Phân bố publication.
+* Citation.
+* Research area.
+* NLP/LLM trends.
+* Researchers.
+* Research groups.
+* Venue.
+* Dataset/model.
+* Xu hướng theo thời gian.
+
+---
+
+# 18. BIỂU DIỄN DỮ LIỆU
+
+Bắt buộc có các nhóm biểu đồ sau.
+
+## 18.1. Histogram
+
+Phân bố:
+
+* Citation.
+* Paper count.
+* Citation per year.
+
+---
+
+## 18.2. Boxplot
+
+So sánh:
+
+* Citation giữa các research areas.
+* Citation giữa các venue.
+* Publication theo research group.
+
+---
+
+## 18.3. Violin Plot
+
+Biểu diễn phân phối:
+
+```text
+Citation distribution
+Research area
+Venue
+```
+
+---
+
+## 18.4. Line Chart
+
+Theo thời gian:
+
+```text
+Year → Number of papers
+Year → NLP papers
+Year → LLM papers
+Year → Citations
+```
+
+---
+
+## 18.5. Area Chart
+
+Biểu diễn:
+
+```text
+AI
+NLP
+LLM
+Computer Vision
+Robotics
+```
+
+theo từng năm.
+
+---
+
+## 18.6. Scatter + Regression
+
+Bắt buộc tạo ít nhất một biểu đồ:
+
+```text
+X = publication_count
+Y = citation_count
+```
+
+và thực hiện:
+
+```text
+Linear Regression
+R²
+Correlation coefficient
+Regression line
+```
+
+Có thể phân tích thêm:
+
+```text
+Paper age vs citations
+Authors vs citations
+Researcher papers vs citations
+```
+
+Lưu ý:
+
+**Correlation không đồng nghĩa với causation.**
+
+---
+
+## 18.7. Heatmap tương quan
+
+Tạo correlation matrix cho các biến số:
+
+```text
+paper_count
+citation_count
+paper_age
+citation_per_year
+researcher_count
+llm_paper_count
+nlp_paper_count
+open_source_project_count
+```
+
+Dùng:
+
+```text
+Pearson correlation
+```
+
+nếu dữ liệu phù hợp.
+
+---
+
+# 19. TREEMAP / SUNBURST
+
+Tạo ít nhất một:
+
+### Treemap
+
+Ví dụ:
+
+```text
+Research Area
+    ├── NLP
+    ├── LLM
+    ├── Computer Vision
+    ├── Robotics
+    └── Machine Learning
+```
+
+hoặc:
+
+```text
+Department
+ → Research Group
+ → Research Area
+ → Paper Count
+```
+
+Có thể sử dụng:
+
+```text
+Plotly
+```
+
+---
+
+# 20. BẢN ĐỒ
+
+Nếu dữ liệu có thông tin địa lý phù hợp, sử dụng:
+
+```text
+Folium
+Plotly Map
+```
+
+Ví dụ:
+
+* Vị trí Tsinghua University.
+* Research collaboration.
+* International research collaboration.
+* Institution của các co-author.
+
+Nếu không có dữ liệu địa lý đáng tin cậy:
+
+**Không được tự tạo tọa độ.**
+
+Thay vào đó sử dụng Treemap/Sunburst.
+
+---
+
+# 21. WORD CLOUD
+
+Tạo WordCloud từ:
+
+```text
+paper titles
+abstracts
+keywords
+research topics
+```
+
+Tiền xử lý:
+
+* lowercase
+* stopwords
+* punctuation removal
+* tokenization
+* loại bỏ từ không có ý nghĩa.
+
+Đối với dữ liệu tiếng Trung cần sử dụng phương pháp tokenize phù hợp, không xử lý giống tiếng Anh.
+
+---
+
+# 22. NETWORK GRAPH
+
+Tạo network graph thể hiện:
+
+### Co-author network
+
+```text
+Researcher → Researcher
+```
+
+hoặc:
+
+### Research collaboration
+
+```text
+University → University
+```
+
+hoặc:
+
+```text
+Researcher → Research Group
+```
+
+Node:
+
+```text
+researcher
+```
+
+Edge:
+
+```text
+co-authorship
+```
+
+Có thể sử dụng:
+
+```text
+NetworkX
+PyVis
+Plotly
+```
+
+---
+
+# 23. BIỂU ĐỒ TƯƠNG TÁC
+
+Bắt buộc có **ít nhất 3 biểu đồ tương tác**.
+
+Ưu tiên:
+
+```text
+Plotly
+Altair
+Bokeh
+```
+
+### Interactive Chart 1
+
+Interactive Line Chart:
+
+```text
+Year
+↓
+Paper count / Citation
+```
+
+Có:
+
+* Hover.
+* Zoom.
+* Filter.
+* Legend.
+
+### Interactive Chart 2
+
+Interactive Scatter:
+
+```text
+Publication count
+vs
+Citation count
+```
+
+Có:
+
+* Hover researcher.
+* Research group.
+* Year.
+* Research area.
+
+### Interactive Chart 3
+
+Interactive Treemap/Sunburst:
+
+```text
+Department
+→ Research Group
+→ Research Area
+→ Papers
+```
+
+Cho phép click để drill-down.
+
+---
+
+# 24. CẤU TRÚC BỘ BIỂU ĐỒ CUỐI CÙNG
+
+Tối thiểu phải có:
+
+```text
+1. Histogram
+2. Boxplot
+3. Violin Plot
+4. Line Chart
+5. Area Chart
+6. Scatter + Regression
+7. Correlation Heatmap
+8. Treemap hoặc Sunburst
+9. WordCloud
+10. Network Graph
+11. Interactive Line Chart
+12. Interactive Scatter Chart
+13. Interactive Treemap/Sunburst
+```
+
+Tức là **ít nhất 13 dạng/biểu đồ**, trong đó **tối thiểu 3 biểu đồ phải tương tác**.
+
+---
+
+# 25. PHÂN TÍCH NHẬN ĐỊNH "DẪN ĐẦU CHÂU Á"
+
+Không được mặc định kết luận:
+
+> "Đại học Thanh Hoa dẫn đầu Châu Á về nghiên cứu AI quy mô lớn và NLP."
+
+Phải kiểm chứng bằng dữ liệu.
+
+Phân tích:
+
+```text
+Research output
+Citation impact
+Top-tier publications
+NLP publications
+LLM publications
+Open-source projects
+Researcher quality
+International collaboration
+AI rankings
+```
+
+Nếu so sánh, có thể chọn các trường AI hàng đầu châu Á phù hợp với dữ liệu thu thập được.
+
+Kết quả phải phân loại:
+
+```text
+SUPPORTED
+PARTIALLY_SUPPORTED
+NOT_SUPPORTED
+INSUFFICIENT_DATA
+```
+
+Không được biến nhận định truyền thông thành fact.
+
+---
+
+# 26. OUTPUT DATA
+
+Xuất:
+
+```text
+CSV
+JSON
+Parquet
+```
+
+Tối thiểu:
+
+```text
+university_info.csv
+research_groups.csv
+researchers.csv
+papers.csv
+llm_models.csv
+datasets.csv
+open_source_projects.csv
+yearly_statistics.csv
+rankings.csv
+```
+
+---
+
+# 27. OUTPUT BIỂU ĐỒ
+
+Lưu:
+
+```text
+PNG
+HTML
+```
+
+Trong đó:
+
+* PNG → biểu đồ tĩnh.
+* HTML → biểu đồ tương tác.
+
+Cấu trúc:
+
+```text
+output/
+├── static/
+│   ├── histogram.png
+│   ├── boxplot.png
+│   ├── violin.png
+│   ├── line.png
+│   ├── area.png
+│   ├── regression.png
+│   ├── heatmap.png
+│   ├── treemap.png
+│   ├── wordcloud.png
+│   └── network.png
+│
+└── interactive/
+    ├── interactive_timeline.html
+    ├── interactive_scatter.html
+    └── interactive_treemap.html
+```
+
+---
+
+# 28. DATA DICTIONARY
+
+Tạo một file:
+
+```text
+data_dictionary.csv
+```
+
+Gồm:
+
+```text
+column_name
+data_type
+description
+source
+allowed_values
+missing_policy
+feature_type
+```
+
+Ví dụ:
+
+```text
+citation_count | int | Number of citations | OpenAlex | >=0 | NULL | numerical
+is_llm         | bool | Paper related to LLM | derived | True/False | False | categorical
+paper_age      | int | Years since publication | derived | >=0 | NULL | numerical
+```
+
+---
+
+# 29. DATA QUALITY REPORT
+
+Tạo:
+
+```text
+data_quality_report.html
+```
+
+Bao gồm:
+
+* Tổng số records.
+* Missing values.
+* Duplicate records.
+* Invalid URLs.
+* Data types.
+* Outliers.
+* Source reliability.
+* Verification status.
+
+---
+
+# 30. BÁO CÁO CUỐI
+
+Tạo báo cáo:
+
+```text
+Tsinghua_AI_Research_Report.html
+```
+
+Nội dung:
+
+## 1. Introduction
+
+Giới thiệu Tsinghua University.
+
+## 2. Data Collection
+
+Trình bày:
+
+* Nguồn.
+* Requests/BeautifulSoup/API.
+* Phạm vi dữ liệu.
+* Thời gian thu thập.
+
+## 3. Data Cleaning
+
+Trình bày:
+
+* Missing values.
+* Duplicate.
+* Data normalization.
+* Feature engineering.
+
+## 4. Exploratory Data Analysis
+
+Phân tích dữ liệu.
+
+## 5. AI Research
+
+Phân tích năng lực AI.
+
+## 6. NLP Research
+
+Phân tích NLP.
+
+## 7. LLM Research
+
+Phân tích LLM.
+
+## 8. Researchers
+
+Phân tích researcher/research group.
+
+## 9. Visualization
+
+Đưa toàn bộ biểu đồ.
+
+## 10. Interactive Visualization
+
+Đưa 3+ biểu đồ tương tác.
+
+## 11. Comparison
+
+So sánh với các trường AI khác nếu đủ dữ liệu.
+
+## 12. Conclusion
+
+Đánh giá nhận định:
+
+> "Tsinghua University dẫn đầu Châu Á về nghiên cứu AI quy mô lớn và Xử lý ngôn ngữ tự nhiên."
+
+## 13. Limitations
+
+Nêu giới hạn dữ liệu.
+
+---
+
+# 31. NGUYÊN TẮC KHÔNG ĐƯỢC VI PHẠM
+
+1. Không bịa dữ liệu.
+2. Không tự tạo citation.
+3. Không tự tạo số liệu ranking.
+4. Không tự tạo tọa độ.
+5. Không tự đoán missing values.
+6. Không coi correlation là causation.
+7. Mọi dữ liệu quan trọng phải có source.
+8. Không scrape vượt quá giới hạn của website.
+9. Tôn trọng robots.txt, rate limit và điều khoản sử dụng.
+10. Ưu tiên API mở nếu có.
+11. Không thu thập dữ liệu cá nhân nhạy cảm.
+12. Không sao chép nguyên văn tài liệu có bản quyền.
+13. Dữ liệu chưa xác minh phải được đánh dấu.
+14. Nếu hai nguồn mâu thuẫn → đánh dấu `CONFLICT`.
+15. Nếu không đủ dữ liệu → ghi `INSUFFICIENT_DATA`.
+16. Không kết luận "dẫn đầu" chỉ dựa trên cảm tính.
+
+---
+
+# 32. KẾT QUẢ CUỐI CÙNG
+
+Sau khi hoàn thành, phải cung cấp:
+
+```text
+[1] Raw dataset
+[2] Clean dataset
+[3] Feature-engineered dataset
+[4] Data dictionary
+[5] Data quality report
+[6] Static visualizations
+[7] Interactive visualizations
+[8] EDA report
+[9] Final research report
+[10] Source/reference list
+```
+
+Mục tiêu cuối cùng:
+
+Tạo một **pipeline Data Science hoàn chỉnh**:
+
+```text
+WEB/API
+ ↓
+DATA COLLECTION
+ ↓
+RAW DATA
+ ↓
+DATA CLEANING
+ ↓
+DATA NORMALIZATION
+ ↓
+MISSING VALUE HANDLING
+ ↓
+FEATURE ENGINEERING
+ ↓
+DATA VALIDATION
+ ↓
+EDA
+ ↓
+STATISTICAL ANALYSIS
+ ↓
+STATIC VISUALIZATION
+ ↓
+INTERACTIVE VISUALIZATION
+ ↓
+RESEARCH ANALYSIS
+ ↓
+FINAL REPORT
+```
+
+Toàn bộ quá trình phải có khả năng **tái chạy (reproducible)** bằng Python và lưu lại nguồn dữ liệu để có thể kiểm chứng.

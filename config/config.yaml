@@ -1,0 +1,89 @@
+source:
+  type: "api"          # api | scraping
+  name: "openalex"
+  base_url: "https://api.openalex.org/works"
+  params:
+    filter: "institutions.id:I99065089,topics.subfield.id:1702"
+    per-page: 200
+  headers:
+    User-Agent: "StudentDataProject/1.0 (mailto:your_email@example.com)"
+  timeout: 30
+  max_retries: 3
+  delay_seconds: 2
+  publication_range:
+    from_date: "2015-01-01"
+    to_date: "2026-10-08"
+  max_sample_records: 1200
+
+storage:
+  raw_path: "data/raw/openalex_raw.json"
+  metadata_path: "data/raw/openalex_collection_metadata.json"
+  processed_path: "data/processed/openalex_clean.parquet"
+  final_path: "data/final/openalex_final.parquet"
+  figure_dir: "outputs/figures"
+  dashboard_path: "outputs/reports/dashboard.html"
+  papers_csv_path: "outputs/reports/papers.csv"
+  researchers_csv_path: "outputs/reports/researchers.csv"
+  research_groups_csv_path: "outputs/reports/research_groups.csv"
+  llm_models_csv_path: "outputs/reports/llm_models.csv"
+  datasets_csv_path: "outputs/reports/datasets.csv"
+  open_source_projects_csv_path: "outputs/reports/open_source_projects.csv"
+  rankings_csv_path: "outputs/reports/rankings.csv"
+  university_info_csv_path: "outputs/reports/university_info.csv"
+  yearly_statistics_csv_path: "outputs/reports/yearly_statistics.csv"
+  data_dictionary_csv_path: "outputs/reports/data_dictionary.csv"
+  quality_report_path: "outputs/reports/data_quality_report.html"
+  storytelling_report_path: "outputs/reports/Storytelling_bao_cao.html"
+  final_report_path: "outputs/reports/Tsinghua_AI_Research_Report.html"
+
+legal:
+  check_robots_txt: true
+  check_tos: true
+  allow_pii: false
+  note: "Chỉ dùng API mở, không thu thập PII, tuân thủ rate limit."
+
+visualization:
+  interactive_lib: "plotly"  # plotly | altair | bokeh
+  static_lib: "matplotlib"   # matplotlib | seaborn
+  min_interactive_charts: 3
+  required_chart_groups: 6
+
+# Nguồn chính thức Tsinghua (Nivel-2 Crawling - đa nguồn)
+official_sources:
+  portals:
+    - name: "Tsinghua English Portal"
+      url: "https://www.tsinghua.edu.cn/en/"
+    - name: "Tsinghua News Center"
+      url: "https://www.tsinghua.edu.cn/en/News.htm"
+  library:
+    - name: "Tsinghua University Library"
+      url: "https://lib.tsinghua.edu.cn/"
+    - name: "Tsinghua Research Data Services"
+      url: "https://data.tsinghua.edu.cn/"
+  admissions:
+    - name: "International Undergraduate"
+      url: "https://join-tsinghua.edu.cn/"
+    - name: "Tsinghua Graduate Programs"
+      url: "https://gradscholar.tsinghua.edu.cn/"
+  rankings:
+    - name: "QS Profile"
+      url: "https://www.qs.com/universities/tsinghua-university/"
+    - name: "THE Profile"
+      url: "https://www.timeshighereducation.com/world-university-rankings/tsinghua-university"
+    - name: "ARWU / ShanghaiRanking"
+      url: "https://www.shanghairanking.com/institutions/tsinghua-university"
+  publications:
+    - name: "Nature Index Tsinghua"
+      url: "https://www.nature.com/nature-index/institution-outputs/tsinghua-university/"
+    - name: "IEEE Xplore Tsinghua"
+      url: "https://ieeexplore.ieee.org/"
+    - name: "ACM Digital Library"
+      url: "https://dl.acm.org/"
+
+scraping_rules:
+  check_robots: true
+  prefer_chinese_site: true  # tsinghua.edu.cn > /en/
+  prefer_api_over_html: true  # OpenAlex / Semantic Scholar > direct crawl
+  institution_id_openalex: "I99065089"  # Tsinghua University OpenAlex institution ID
+  ai_subfield_id_openalex: "1702"  # Artificial Intelligence
+  rate_limit_delay: 1

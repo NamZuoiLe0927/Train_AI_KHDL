@@ -1,0 +1,73 @@
+﻿column_name,data_type,description,source,allowed_values,missing_policy,feature_type
+id,string,OpenAlex work identifier,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+doi,string,OpenAlex source or derived field: doi,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+title,string,Publication title,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+display_name,string,OpenAlex source or derived field: display_name,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+publication_year,int,Publication year,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+publication_date,datetime,Publication date in OpenAlex,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+ids,list/object,OpenAlex source or derived field: ids,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+language,string,OpenAlex source or derived field: language,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+primary_location,list/object,OpenAlex source or derived field: primary_location,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+type,string,OpenAlex source or derived field: type,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+indexed_in,string,OpenAlex source or derived field: indexed_in,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+open_access,list/object,OpenAlex source or derived field: open_access,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+authorships,string,Author and affiliation metadata reported by OpenAlex,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+institutions,string,OpenAlex source or derived field: institutions,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+countries_distinct_count,int,OpenAlex source or derived field: countries_distinct_count,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+institutions_distinct_count,int,OpenAlex source or derived field: institutions_distinct_count,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+corresponding_author_ids,string,OpenAlex source or derived field: corresponding_author_ids,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+corresponding_institution_ids,string,OpenAlex source or derived field: corresponding_institution_ids,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+apc_list,list/object,OpenAlex source or derived field: apc_list,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+apc_paid,list/object,OpenAlex source or derived field: apc_paid,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+fwci,float,OpenAlex source or derived field: fwci,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+has_fulltext,bool,OpenAlex source or derived field: has_fulltext,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+cited_by_count,int,Citation count reported by OpenAlex,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+citation_normalized_percentile,list/object,OpenAlex source or derived field: citation_normalized_percentile,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+cited_by_percentile_year,list/object,OpenAlex source or derived field: cited_by_percentile_year,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+biblio,list/object,OpenAlex source or derived field: biblio,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+is_retracted,bool,OpenAlex source or derived field: is_retracted,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+is_paratext,bool,OpenAlex source or derived field: is_paratext,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+is_xpac,bool,OpenAlex source or derived field: is_xpac,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+primary_topic,list/object,OpenAlex source or derived field: primary_topic,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+topics,string,OpenAlex source or derived field: topics,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+keywords,string,OpenAlex source or derived field: keywords,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+concepts,string,OpenAlex source or derived field: concepts,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+mesh,string,OpenAlex source or derived field: mesh,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+locations_count,int,OpenAlex source or derived field: locations_count,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+locations,string,OpenAlex source or derived field: locations,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+best_oa_location,list/object,OpenAlex source or derived field: best_oa_location,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+sustainable_development_goals,string,OpenAlex source or derived field: sustainable_development_goals,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+sustainable_development_goals_aurora,string,OpenAlex source or derived field: sustainable_development_goals_aurora,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+study_designs,string,OpenAlex source or derived field: study_designs,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+awards,string,OpenAlex source or derived field: awards,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+funders,string,OpenAlex source or derived field: funders,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+has_content,list/object,OpenAlex source or derived field: has_content,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+content_urls,list/object,OpenAlex source or derived field: content_urls,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+referenced_works_count,int,OpenAlex source or derived field: referenced_works_count,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+referenced_works,string,OpenAlex source or derived field: referenced_works,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+related_works,string,OpenAlex source or derived field: related_works,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+abstract_inverted_index,list/object,OpenAlex source or derived field: abstract_inverted_index,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+counts_by_year,string,OpenAlex source or derived field: counts_by_year,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+updated_date,string,OpenAlex source or derived field: updated_date,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+created_date,string,OpenAlex source or derived field: created_date,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+publication_month,int,Publication month,OpenAlex,,Preserve as missing; do not fabricate source metadata,source/normalized
+publication_quarter,int,OpenAlex source or derived field: publication_quarter,derived,,Preserve as missing; do not fabricate source metadata,source/normalized
+authors_count,int,OpenAlex source or derived field: authors_count,derived,,Preserve as missing; do not fabricate source metadata,source/normalized
+primary_concept,string,OpenAlex source or derived field: primary_concept,derived,,Preserve as missing; do not fabricate source metadata,source/normalized
+primary_topic_name,string,OpenAlex primary topic,derived,,Preserve as missing; do not fabricate source metadata,source/normalized
+primary_subfield,string,OpenAlex primary topic subfield,derived,,Preserve as missing; do not fabricate source metadata,source/normalized
+topic_names,string,OpenAlex topic labels,derived,,Preserve as missing; do not fabricate source metadata,source/normalized
+keyword_names,string,OpenAlex keyword labels,derived,,Preserve as missing; do not fabricate source metadata,source/normalized
+countries,string,OpenAlex source or derived field: countries,derived,,Preserve as missing; do not fabricate source metadata,source/normalized
+countries_count,int,OpenAlex source or derived field: countries_count,derived,,Preserve as missing; do not fabricate source metadata,engineered
+is_international,bool,OpenAlex source or derived field: is_international,derived,,Preserve as missing; do not fabricate source metadata,engineered
+venue_name,string,Source venue from the primary OpenAlex location,derived,,Preserve as missing; do not fabricate source metadata,source/normalized
+paper_age,int,OpenAlex source or derived field: paper_age,derived,,Preserve as missing; do not fabricate source metadata,engineered
+citations_per_year,float,OpenAlex source or derived field: citations_per_year,derived,,Preserve as missing; do not fabricate source metadata,engineered
+citation_level,string,OpenAlex source or derived field: citation_level,derived,,Preserve as missing; do not fabricate source metadata,engineered
+single_author,bool,OpenAlex source or derived field: single_author,derived,,Preserve as missing; do not fabricate source metadata,engineered
+large_team,bool,OpenAlex source or derived field: large_team,derived,,Preserve as missing; do not fabricate source metadata,engineered
+concept_group,string,Derived broad AI research category,derived,,Preserve as missing; do not fabricate source metadata,engineered
+is_top_venue,bool,OpenAlex source or derived field: is_top_venue,derived,,Preserve as missing; do not fabricate source metadata,engineered
+abstract_length,int,Token count reconstructed from the OpenAlex abstract index,derived,,Preserve as missing; do not fabricate source metadata,engineered
+year_month,string,OpenAlex source or derived field: year_month,derived,,Preserve as missing; do not fabricate source metadata,engineered

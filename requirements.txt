@@ -1,0 +1,16 @@
+requests
+beautifulsoup4
+lxml
+pandas
+numpy
+pyarrow
+matplotlib
+seaborn
+plotly
+folium
+wordcloud
+networkx
+scikit-learn
+statsmodels
+jupyter
+pyyaml

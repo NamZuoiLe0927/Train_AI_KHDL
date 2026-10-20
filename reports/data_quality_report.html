@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="vi"><meta charset="utf-8"><title>Báo cáo chất lượng dữ liệu</title>
+<style>body{font:16px system-ui;max-width:1000px;margin:40px auto;padding:0 20px;color:#243044}
+table{border-collapse:collapse;width:100%;margin:18px 0}th,td{border:1px solid #d8dee8;padding:8px;text-align:left}
+th{background:#edf2f8}.cards{display:flex;gap:14px;flex-wrap:wrap}.card{padding:14px 20px;background:#f1f5f9;border-radius:8px}</style>
+<h1>Báo cáo chất lượng dữ liệu</h1>
+<p>Nguồn: OpenAlex Works API; truy vấn affiliation Tsinghua và topic subfield AI.
+Thời gian: 2015-01-01 đến 2026-10-08.</p>
+<div class="cards"><div class="card">Bản ghi: <b>1,200</b></div>
+<div class="card">Số cột: <b>72</b></div>
+<div class="card">Trùng ID: <b>0</b></div>
+<div class="card">DOI không đúng URL: <b>0</b></div>
+<div class="card">Venue thiếu: <b>38</b></div>
+<div class="card">Abstract thiếu: <b>233</b></div>
+<div class="card">Ngoại lệ trích dẫn theo IQR: <b>90</b></div>
+<div class="card">OpenAlex trong phạm vi: <b>32,357</b></div></div>
+<p>Trong raw, 1197/1200 bản ghi có affiliation hiển thị mã tổ chức đã lọc;
+1200/1200 có topic hiển thị đúng subfield AI. Bộ lọc truy vấn API dùng chính xác
+mã tổ chức và subfield ghi trong metadata; bản ghi thiếu ID affiliation hiển thị được giữ và đánh dấu
+để kiểm tra nguồn.</p>
+<h2>Mẫu theo năm</h2><table><thead><tr><th>Năm</th><th>Số bản ghi phù hợp theo OpenAlex</th>
+<th>Số bản ghi đã lấy</th></tr></thead><tbody><tr><td>2015</td><td>922</td><td>35</td></tr><tr><td>2016</td><td>978</td><td>37</td></tr><tr><td>2017</td><td>1079</td><td>40</td></tr><tr><td>2018</td><td>1430</td><td>54</td></tr><tr><td>2019</td><td>1764</td><td>66</td></tr><tr><td>2020</td><td>2076</td><td>77</td></tr><tr><td>2021</td><td>2650</td><td>99</td></tr><tr><td>2022</td><td>2880</td><td>107</td></tr><tr><td>2023</td><td>3672</td><td>137</td></tr><tr><td>2024</td><td>4604</td><td>171</td></tr><tr><td>2025</td><td>4754</td><td>177</td></tr><tr><td>2026</td><td>5548</td><td>200</td></tr></tbody></table>
+<h2>Trường có giá trị thiếu</h2><table><thead><tr><th>Cột</th><th>Số thiếu</th><th>Tỷ lệ</th>
+</tr></thead><tbody><tr><td>apc_paid</td><td>968</td><td>80.7%</td></tr><tr><td>content_urls</td><td>863</td><td>71.9%</td></tr><tr><td>best_oa_location</td><td>608</td><td>50.7%</td></tr><tr><td>apc_list</td><td>464</td><td>38.7%</td></tr><tr><td>abstract_inverted_index</td><td>233</td><td>19.4%</td></tr><tr><td>language</td><td>35</td><td>2.9%</td></tr><tr><td>doi</td><td>7</td><td>0.6%</td></tr></tbody></table>
+<h2>Kiểm tra</h2><ul><li>Loại dữ liệu và kiểu lồng nhau được giữ theo metadata OpenAlex.</li>
+<li>Trùng lặp được loại theo OpenAlex work ID.</li><li>Không tự điền venue, abstract hoặc URL code/dataset bị thiếu.</li>
+<li>Quota lấy mẫu được phân bổ tỷ lệ theo số bản ghi OpenAlex từng năm; mỗi năm tối đa 200 bài.
+Đây là mẫu theo thứ tự API, không phải mẫu ngẫu nhiên.</li>
+<li>Các bảng research group, LLM/model, dataset, dự án mã nguồn mở và ranking chỉ có header
+cho đến khi có nguồn xác minh riêng; không tạo dữ liệu suy đoán.</li></ul></html>

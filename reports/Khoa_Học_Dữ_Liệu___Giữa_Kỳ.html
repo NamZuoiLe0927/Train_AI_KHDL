@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Báo cáo phân tích dữ liệu công bố nghiên cứu AI của Đại học Thanh Hoa từ OpenAlex.">
+  <title>Báo cáo TrainAI — Nghiên cứu AI tại Đại học Thanh Hoa</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #142b42;
+      --blue: #286486;
+      --teal: #278a83;
+      --gold: #d4a94f;
+      --ink: #203247;
+      --muted: #617286;
+      --paper: #f3f6f9;
+      --line: #dce5ec;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.72 "Segoe UI", system-ui, sans-serif;
+    }
+    a { color: #176a91; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #142b42f5;
+      border-bottom: 1px solid #ffffff24;
+    }
+    .topbar-inner {
+      max-width: 1160px;
+      min-height: 58px;
+      margin: auto;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand { color: var(--white); font-weight: 800; letter-spacing: .04em; }
+    .brand span { color: #edcb81; }
+    .topbar nav { display: flex; flex-wrap: wrap; gap: 18px; font-size: .88rem; }
+    .topbar nav a { color: #e3edf4; }
+    .hero {
+      padding: clamp(54px, 8vw, 96px) 22px 80px;
+      color: var(--white);
+      background:
+        radial-gradient(ellipse at 82% 12%, #278a8350, transparent 38%),
+        linear-gradient(125deg, #142b42, #1e4d68 65%, #2c777e);
+    }
+    .hero-inner, main, footer > div { max-width: 1100px; margin: auto; }
+    .eyebrow {
+      color: #f1d493;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 850px;
+      margin: 16px 0;
+      font-size: clamp(2.25rem, 6vw, 4.25rem);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+    }
+    .hero p { max-width: 760px; color: #d8e5ed; font-size: 1.08rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 24px; }
+    .pill {
+      padding: 6px 12px;
+      border: 1px solid #ffffff35;
+      border-radius: 99px;
+      color: #e4edf3;
+      background: #ffffff0c;
+      font-size: .82rem;
+    }
+    main { padding: 22px 18px 55px; }
+    .section {
+      margin: 17px 0;
+      padding: clamp(21px, 4vw, 36px);
+      border: 1px solid #e6edf2;
+      border-radius: 17px;
+      background: var(--white);
+      box-shadow: 0 10px 30px #18344c0b;
+    }
+    h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+      line-height: 1.3;
+    }
+    h3 { margin: 24px 0 8px; color: #244d69; font-size: 1.1rem; }
+    h4 { margin: 18px 0 5px; color: #315e78; }
+    p { margin: 10px 0; }
+    li { margin: 5px 0; }
+    .section-heading { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+    .section-number { flex: 0 0 auto; padding-top: 5px; color: var(--teal); font-size: .8rem; font-weight: 900; letter-spacing: .1em; }
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 8px 20px;
+      margin: 12px 0 0;
+      padding-left: 22px;
+    }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 11px; margin: 22px 0; }
+    .stat { padding: 15px; border: 1px solid var(--line); border-radius: 12px; background: #f7fafc; }
+    .stat strong { display: block; color: var(--blue); font-size: 1.55rem; line-height: 1.25; }
+    .stat span { display: block; margin-top: 5px; color: var(--muted); font-size: .85rem; }
+    .note, .caution {
+      margin: 18px 0;
+      padding: 14px 17px;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 10px 10px 0;
+      background: #fff8e9;
+      color: #554a37;
+    }
+    .caution { border-left-color: #ca7950; background: #fff4ee; }
+    .table-wrap { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: 11px; }
+    table { width: 100%; border-collapse: collapse; min-width: 560px; font-variant-numeric: tabular-nums; }
+    th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { background: #f0f6f8; color: #264e69; font-size: .88rem; }
+    tr:last-child td { border-bottom: 0; }
+    code, .path { padding: 1px 5px; border-radius: 4px; background: #eef3f6; overflow-wrap: anywhere; }
+    .chart-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; margin-top: 16px; }
+    figure { min-width: 0; margin: 0; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: #fbfcfd; }
+    figure img { display: block; width: 100%; height: auto; border-radius: 7px; }
+    figcaption { padding: 9px 4px 2px; color: #365166; font-size: .9rem; font-weight: 650; }
+    .resource-list { display: flex; flex-wrap: wrap; gap: 9px; margin: 14px 0; }
+    .resource-list a { padding: 8px 12px; border: 1px solid #cddde6; border-radius: 9px; background: #f4f9fb; }
+    .ref-list li { overflow-wrap: anywhere; }
+    footer { padding: 28px 20px; background: var(--navy); color: #d1dce5; text-align: center; font-size: .88rem; }
+    footer a { color: #f0cd87; }
+    @media (max-width: 700px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; padding: 11px 16px; gap: 5px; }
+      .topbar nav { gap: 12px; }
+      .chart-grid { grid-template-columns: 1fr; }
+      main { padding-right: 12px; padding-left: 12px; }
+    }
+    @media print {
+      html { scroll-behavior: auto; }
+      .topbar { display: none; }
+      body { background: #fff; font-size: 10.5pt; }
+      .hero { padding: 35px 0; print-color-adjust: exact; }
+      main { max-width: none; padding: 0; }
+      .section { margin: 12px 0; padding: 18px; box-shadow: none; break-inside: avoid; }
+      .chart-grid { grid-template-columns: 1fr 1fr; }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div class="eyebrow">Báo cáo Khoa học Dữ liệu · Dự án TrainAI</div>
+      <h1>Phân tích công bố nghiên cứu AI tại Đại học Thanh Hoa</h1>
+      <p>
+        Khảo sát mẫu công trình được OpenAlex gắn với Tsinghua University và có chủ đề thuộc
+        phân ngành Artificial Intelligence; tập trung vào phạm vi dữ liệu, xu hướng mô tả,
+        cộng tác và giới hạn của phép đo.
+      </p>
+      <div class="meta">
+        <span class="pill">清华大学 · Tsinghua University</span>
+        <span class="pill">Bắc Kinh, Trung Quốc</span>
+        <span class="pill">Dữ liệu: 2015-01-01 — 2026-10-08</span>
+        <span class="pill">Nguồn học thuật: OpenAlex</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="contents">
+      <div class="section-heading"><span class="section-number">MỤC LỤC</span><h2>Nội dung báo cáo</h2></div>
+      <ol class="toc">
+        <li><a href="#overview">Tổng quan dự án</a></li>
+        <li><a href="#requirements">Các yêu cầu chính đã đáp ứng</a></li>
+        <li><a href="#eda">EDA — Khám phá dữ liệu</a></li>
+        <li><a href="#visualization">Trực quan hóa 6 nhóm</a></li>
+        <li><a href="#chart-analysis">Nhận xét sau mỗi nhóm biểu đồ</a></li>
+        <li><a href="#raw-data">Dữ liệu thô và bảng dữ liệu</a></li>
+        <li><a href="#pipeline">Các bước thực hiện (Pipeline)</a></li>
+        <li><a href="#rerun">Cách tái chạy</a></li>
+        <li><a href="#principles">Nguyên tắc và giới hạn</a></li>
+        <li><a href="#conclusion">Kết luận</a></li>
+        <li><a href="#glossary">Danh mục từ viết tắt</a></li>
+        <li><a href="#references">Tài liệu tham khảo</a></li>
+      </ol>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="section-heading"><span class="section-number">01</span><h2>Tổng quan dự án</h2></div>
+      <p>
+        Đề tài sử dụng dữ liệu công bố học thuật để mô tả hoạt động nghiên cứu AI gắn với
+        Đại học Thanh Hoa (Tsinghua University, 清华大学), cơ sở giáo dục tại Bắc Kinh, Trung Quốc.
+        Phạm vi không phải toàn bộ công bố của trường: truy vấn yêu cầu bản ghi có liên kết
+        tổ chức Tsinghua trong OpenAlex và có ít nhất một topic thuộc subfield Artificial Intelligence.
+      </p>
+      <p>
+        Bộ dữ liệu lưu trong dự án có <strong>1.200 công trình</strong>, được chọn từ
+        <strong>32.357 kết quả phù hợp</strong> trong khoảng ngày 01/01/2015–08/10/2026.
+        Mẫu được phân bổ theo quy mô kết quả từng năm, tối đa 200 công trình/năm; đây là mẫu
+        theo thứ tự API, không phải mẫu ngẫu nhiên.
+      </p>
+      <div class="stats">
+        <div class="stat"><strong>1.200</strong><span>Công trình trong mẫu phân tích</span></div>
+        <div class="stat"><strong>32.357</strong><span>Kết quả phù hợp theo truy vấn OpenAlex</span></div>
+        <div class="stat"><strong>2015–2026</strong><span>Khoảng năm xuất bản; 2026 chưa trọn năm</span></div>
+        <div class="stat"><strong>378.148</strong><span>Lượt trích dẫn cộng gộp trong mẫu</span></div>
+        <div class="stat"><strong>596</strong><span>Công trình có cộng tác đa quốc gia</span></div>
+        <div class="stat"><strong>119,5</strong><span>Trung vị lượt trích dẫn mỗi công trình</span></div>
+      </div>
+      <div class="note">
+        <strong>Cách diễn giải:</strong> các chỉ số dưới đây mô tả mẫu OpenAlex đã lưu, không phải
+        tổng sản lượng chính thức hay bảng xếp hạng chất lượng của Tsinghua. OpenAlex gán chủ đề,
+        thông tin trích dẫn và liên kết affiliation từ metadata học thuật; các trường này có thể
+        thiếu, cập nhật hoặc gán chưa chính xác.
+      </div>
+    </section>
+
+    <section class="section" id="requirements">
+      <div class="section-heading"><span class="section-number">02</span><h2>Các yêu cầu chính đã đáp ứng</h2></div>
+      <h3>2.1 Thu thập dữ liệu qua API mở</h3>
+      <ul>
+        <li><strong>Thành phần:</strong> <code>src/scraper/extract.py</code> gọi OpenAlex Works API bằng <code>requests</code>.</li>
+        <li><strong>Bộ lọc:</strong> tổ chức OpenAlex <code>I99065089</code> và subfield AI <code>1702</code>; giới hạn ngày được cấu hình trong <code>config/config.yaml</code>.</li>
+        <li><strong>Phân bổ mẫu:</strong> đếm kết quả theo năm, phân quota theo tỷ trọng và giới hạn tối đa 200 bản ghi mỗi năm; loại ID trùng trong quá trình thu thập.</li>
+        <li><strong>Kết quả:</strong> 1.200 bản ghi JSON cùng metadata thu thập và số lượng kết quả theo năm.</li>
+      </ul>
+
+      <h3>2.2 Kiểm tra, làm sạch và chuẩn hóa</h3>
+      <ul>
+        <li><code>src/cleaner/clean.py</code> chuyển ngày xuất bản sang kiểu ngày, trích năm/tháng/quý và chuyển lượt trích dẫn sang số nguyên.</li>
+        <li>Tạo số tác giả, tên topic/subfield, từ khóa, venue, danh sách quốc gia và cờ cộng tác đa quốc gia từ các trường lồng nhau.</li>
+        <li>Trùng lặp được loại theo ID công trình. Trường trích dẫn thiếu được thay bằng 0; venue chưa có được biểu diễn là <code>Unknown</code>, không tự đoán giá trị.</li>
+        <li>Dữ liệu sau bước này được lưu tại <code>data/processed/openalex_clean.parquet</code>.</li>
+      </ul>
+
+      <h3>2.3 Tạo đặc trưng</h3>
+      <p><code>src/feature_engineering/features.py</code> bổ sung các biến phục vụ mô tả và trực quan hóa:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Đặc trưng</th><th>Cách tạo</th><th>Mục đích</th></tr></thead>
+        <tbody>
+          <tr><td><code>paper_age</code></td><td>Năm hiện tại trừ năm xuất bản; chặn giá trị âm</td><td>Tuổi bài báo trong bộ dữ liệu</td></tr>
+          <tr><td><code>citations_per_year</code></td><td>Lượt trích dẫn chia cho max(tuổi bài, 1)</td><td>Chuẩn hóa mô tả sơ bộ theo thời gian</td></tr>
+          <tr><td><code>citation_level</code></td><td>Nhóm theo ngưỡng 0, 1–10, 11–50, 51–200, &gt;200</td><td>So sánh phân bố trích dẫn</td></tr>
+          <tr><td><code>single_author</code>, <code>large_team</code></td><td>1 tác giả; từ 10 tác giả trở lên</td><td>Mô tả quy mô nhóm tác giả</td></tr>
+          <tr><td><code>concept_group</code></td><td>Phân nhóm heuristic từ tên topic/concept/keyword</td><td>Nhóm Machine Learning, NLP, Vision, Robotics, AI Systems, Other</td></tr>
+          <tr><td><code>is_top_venue</code></td><td>So venue với danh sách tên được khai báo trong mã</td><td>Chỉ báo heuristic; không phải đánh giá xếp hạng độc lập</td></tr>
+          <tr><td><code>abstract_length</code>, <code>year_month</code></td><td>Độ dài chỉ mục abstract và chuỗi năm-tháng</td><td>Phân tích metadata văn bản và thời gian</td></tr>
+        </tbody>
+      </table></div>
+      <p>Dữ liệu có đặc trưng được lưu tại <code>data/final/openalex_final.parquet</code>.</p>
+    </section>
+
+    <section class="section" id="eda">
+      <div class="section-heading"><span class="section-number">03</span><h2>EDA — Khám phá dữ liệu trước khi diễn giải</h2></div>
+      <h3>3.1 Thống kê mô tả</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Chỉ số trên mẫu 1.200 bài</th><th>Kết quả</th><th>Nhận xét mô tả</th></tr></thead>
+        <tbody>
+          <tr><td>Lượt trích dẫn</td><td>Trung bình 315,1; trung vị 119,5; độ lệch chuẩn 1.690,6</td><td>Phân phối lệch phải, chịu ảnh hưởng của một số công trình có trích dẫn rất cao.</td></tr>
+          <tr><td>Khoảng trích dẫn</td><td>Thấp nhất 2; cao nhất 46.001</td><td>Giá trị lớn nhất thuộc “Densely Connected Convolutional Networks” (2017) trong bản dữ liệu lưu.</td></tr>
+          <tr><td>Số tác giả</td><td>Trung bình 8,1; trung vị 6; lớn nhất 100</td><td>Quy mô nhóm tác giả biến thiên lớn giữa các công trình.</td></tr>
+          <tr><td>Cộng tác đa quốc gia</td><td>596/1.200, tương đương 49,7%</td><td>Dựa trên quốc gia được gắn trong authorships của OpenAlex.</td></tr>
+          <tr><td>Venue chưa xác định</td><td>38/1.200, tương đương 3,2%</td><td>Không nội suy tên venue.</td></tr>
+          <tr><td>Không có chỉ mục abstract</td><td>233/1.200, tương đương 19,4%</td><td>Không thể suy ra độ dài/nội dung abstract từ các bản ghi này.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>3.2 Số bản ghi theo năm</h3>
+      <p>
+        Cột “trong mẫu” là số công trình được lấy, không phải tổng số công trình Tsinghua công bố
+        trong năm đó. Năm 2026 mới được tính đến 08/10/2026 và quota năm này chạm mức trần 200.
+      </p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Năm</th><th>Kết quả phù hợp theo OpenAlex</th><th>Đưa vào mẫu</th></tr></thead>
+        <tbody>
+          <tr><td>2015</td><td>922</td><td>35</td></tr><tr><td>2016</td><td>978</td><td>37</td></tr>
+          <tr><td>2017</td><td>1.079</td><td>40</td></tr><tr><td>2018</td><td>1.430</td><td>54</td></tr>
+          <tr><td>2019</td><td>1.764</td><td>66</td></tr><tr><td>2020</td><td>2.076</td><td>77</td></tr>
+          <tr><td>2021</td><td>2.650</td><td>99</td></tr><tr><td>2022</td><td>2.880</td><td>107</td></tr>
+          <tr><td>2023</td><td>3.672</td><td>137</td></tr><tr><td>2024</td><td>4.604</td><td>171</td></tr>
+          <tr><td>2025</td><td>4.754</td><td>177</td></tr><tr><td>2026*</td><td>5.548</td><td>200</td></tr>
+          <tr><td><strong>Tổng</strong></td><td><strong>32.357</strong></td><td><strong>1.200</strong></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>3.3 Nhóm lĩnh vực do dự án phân loại</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nhóm heuristic</th><th>Số bài trong mẫu</th><th>Tỷ lệ</th></tr></thead>
+        <tbody>
+          <tr><td>Machine Learning</td><td>372</td><td>31,0%</td></tr>
+          <tr><td>AI Systems</td><td>218</td><td>18,2%</td></tr>
+          <tr><td>Computer Vision</td><td>189</td><td>15,8%</td></tr>
+          <tr><td>Other</td><td>167</td><td>13,9%</td></tr>
+          <tr><td>Robotics</td><td>148</td><td>12,3%</td></tr>
+          <tr><td>NLP</td><td>106</td><td>8,8%</td></tr>
+        </tbody>
+      </table></div>
+      <p>
+        Nhãn trên được suy ra bằng từ khóa trong mã dự án, không phải taxonomy chính thức của trường
+        hay OpenAlex. Mặc dù truy vấn yêu cầu có một AI topic, primary subfield của một số bài có thể
+        là lĩnh vực liên quan khác.
+      </p>
+      <h3>3.4 Kiểm tra phạm vi và chất lượng metadata</h3>
+      <p>
+        Trong raw JSON, 1.197/1.200 bản ghi hiển thị mã Tsinghua trong authorships; 3 bản ghi còn lại
+        vẫn nằm trong phản hồi truy vấn nhưng không có affiliation mục tiêu hiển thị tại trường này.
+        Đây là sai khác cần giữ lại để kiểm tra, không được âm thầm coi toàn bộ mẫu là khớp hoàn hảo.
+        Bộ lọc topic AI được hiển thị trong cả 1.200 bản ghi.
+      </p>
+      <div class="caution">
+        Tương quan Pearson giữa năm xuất bản và lượt trích dẫn trong mẫu khoảng -0,170 (R² xấp xỉ 0,029).
+        Chỉ số yếu này không chứng minh quan hệ nhân quả; bài cũ có nhiều thời gian tích lũy trích dẫn hơn,
+        đồng thời dữ liệu bị ảnh hưởng bởi lấy mẫu và độ phủ metadata.
+      </div>
+    </section>
+
+    <section class="section" id="visualization">
+      <div class="section-heading"><span class="section-number">04</span><h2>Trực quan hóa 6 nhóm biểu đồ</h2></div>
+      <p>
+        Dự án có 10 biểu đồ tĩnh và 3 biểu đồ HTML tương tác. Nhấp vào các tài nguyên tương tác để dùng
+        hover, zoom hoặc chọn phạm vi; hình tĩnh bên dưới được tham chiếu trực tiếp từ thư mục outputs.
+      </p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nhóm</th><th>Loại biểu đồ</th><th>Tệp tiêu biểu</th><th>Mục đích</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>Histogram, boxplot, violin</td><td>histogram_citations.png; boxplot_citations_by_area.png; violin_citations_venue.png</td><td>Phân bố và độ phân tán trích dẫn theo nhóm/venue.</td></tr>
+          <tr><td>B</td><td>Line, area theo thời gian</td><td>line_papers_per_year.png; area_papers_by_area.png</td><td>Khám phá quy mô mẫu theo năm và nhóm khái niệm.</td></tr>
+          <tr><td>C</td><td>Scatter và đường hồi quy</td><td>scatter_year_vs_citations.png</td><td>Quan sát mối liên hệ mô tả giữa năm xuất bản và trích dẫn.</td></tr>
+          <tr><td>D</td><td>Heatmap tương quan</td><td>heatmap_correlation.png</td><td>So sánh tương quan giữa các biến số được chọn.</td></tr>
+          <tr><td>E</td><td>Treemap</td><td>treemap_concept_groups.png</td><td>Thể hiện cơ cấu mẫu theo nhóm lĩnh vực heuristic.</td></tr>
+          <tr><td>F</td><td>Word cloud, network</td><td>wordcloud_titles.png; network_coauthors.png</td><td>Khám phá từ trong tiêu đề và kết nối đồng tác giả.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="chart-grid">
+        <figure><img loading="lazy" src="../outputs/figures/histogram_citations.png" alt="Histogram lượt trích dẫn"><figcaption>A1. Phân bố lượt trích dẫn</figcaption></figure>
+        <figure><img loading="lazy" src="../outputs/figures/boxplot_citations_by_area.png" alt="Boxplot lượt trích dẫn theo lĩnh vực"><figcaption>A2. Trích dẫn theo lĩnh vực</figcaption></figure>
+        <figure><img loading="lazy" src="../outputs/figures/violin_citations_venue.png" alt="Violin plot trích dẫn theo venue"><figcaption>A3. Phân phối theo venue</figcaption></figure>
+        <figure><img loading="lazy" src="../outputs/figures/line_papers_per_year.png" alt="Số bài trong mẫu theo năm"><figcaption>B1. Bản ghi trong mẫu theo năm</figcaption></figure>
+        <figure><img loading="lazy" src="../outputs/figures/area_papers_by_area.png" alt="Diễn biến nhóm lĩnh vực theo năm"><figcaption>B2. Nhóm khái niệm theo năm</figcaption></figure>
+        <figure><img loading="lazy" src="../outputs/figures/scatter_year_vs_citations.png" alt="Scatter năm xuất bản và trích dẫn"><figcaption>C. Năm xuất bản và trích dẫn</figcaption></figure>
+        <figure><img loading="lazy" src="../outputs/figures/heatmap_correlation.png" alt="Heatmap tương quan"><figcaption>D. Ma trận tương quan</figcaption></figure>
+        <figure><img loading="lazy" src="../outputs/figures/treemap_concept_groups.png" alt="Treemap nhóm lĩnh vực"><figcaption>E. Cơ cấu nhóm khái niệm</figcaption></figure>
+        <figure><img loading="lazy" src="../outputs/figures/wordcloud_titles.png" alt="Word cloud tiêu đề công trình"><figcaption>F1. Từ khóa nổi bật trong tiêu đề</figcaption></figure>
+        <figure><img loading="lazy" src="../outputs/figures/network_coauthors.png" alt="Mạng lưới đồng tác giả"><figcaption>F2. Mạng lưới đồng tác giả</figcaption></figure>
+      </div>
+      <div class="resource-list">
+        <a href="../outputs/figures/interactive_chart_1.html" target="_blank" rel="noopener">Biểu đồ tương tác 1 · thời gian</a>
+        <a href="../outputs/figures/interactive_chart_2.html" target="_blank" rel="noopener">Biểu đồ tương tác 2 · scatter</a>
+        <a href="../outputs/figures/interactive_chart_3.html" target="_blank" rel="noopener">Biểu đồ tương tác 3 · treemap</a>
+        <a href="dashboard.html" target="_blank" rel="noopener">Dashboard hiện có</a>
+      </div>
+    </section>
+
+    <section class="section" id="chart-analysis">
+      <div class="section-heading"><span class="section-number">05</span><h2>Nhận xét sau mỗi nhóm biểu đồ</h2></div>
+      <ul>
+        <li><strong>A — Phân phối:</strong> số trích dẫn lệch phải rõ rệt; trung bình lớn hơn trung vị nhiều. Một số giá trị rất cao kéo giãn thang đo, vì vậy nên đọc thêm median/quantile thay vì chỉ dùng mean.</li>
+        <li><strong>B — Thời gian:</strong> số bản ghi trong mẫu tăng qua các năm do quy mô truy vấn và quota lấy mẫu thay đổi; không diễn giải đường này như sản lượng công bố thực tế. Năm 2026 chưa đủ 12 tháng.</li>
+        <li><strong>C — Scatter/hồi quy:</strong> xu hướng năm–trích dẫn âm nhẹ (r≈-0,170). Thời gian tích lũy trích dẫn là yếu tố gây nhiễu quan trọng; hồi quy chỉ nhằm mô tả, không dự báo chất lượng.</li>
+        <li><strong>D — Heatmap:</strong> dùng để phát hiện cặp biến đồng biến/đối biến trong mẫu. Các biến có thể cùng phụ thuộc vào tuổi bài, quy mô tác giả, loại công trình và độ đầy đủ metadata; tương quan không hàm ý nhân quả.</li>
+        <li><strong>E — Treemap:</strong> Machine Learning là nhóm lớn nhất theo bộ quy tắc phân loại của dự án. Kích thước nhóm phụ thuộc từ khóa và thứ tự điều kiện trong hàm phân loại.</li>
+        <li><strong>F — Word cloud/network:</strong> biểu đồ hỗ trợ tìm chủ đề và kết nối, nhưng độ nổi bật không đồng nghĩa với mức quan trọng học thuật. Mạng lưới phụ thuộc cách xử lý tên tác giả/ID và chỉ bao phủ mẫu 1.200 bài.</li>
+      </ul>
+      <p><strong>Kết luận mô tả:</strong> mẫu cho thấy phổ chủ đề và hợp tác rộng, song mọi kết luận định lượng phải đi kèm giới hạn lấy mẫu và độ tin cậy metadata.</p>
+    </section>
+
+    <section class="section" id="raw-data">
+      <div class="section-heading"><span class="section-number">06</span><h2>Dữ liệu thô và các bảng dữ liệu sẵn có</h2></div>
+      <p>
+        Mục dữ liệu thô được giữ lại vì dự án hiện có dữ liệu OpenAlex đã lưu. Thay vì chép 1.200
+        bản ghi vào thân báo cáo, các tệp gốc và dữ liệu đã xử lý được liên kết dưới đây để tra cứu
+        và tái lập.
+      </p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tệp</th><th>Nội dung</th><th>Trạng thái</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../data/raw/openalex_raw.json" target="_blank" rel="noopener">openalex_raw.json</a></td><td>1.200 đối tượng Works API, còn cấu trúc JSON lồng nhau</td><td>Có</td></tr>
+          <tr><td><a href="../data/raw/openalex_collection_metadata.json" target="_blank" rel="noopener">openalex_collection_metadata.json</a></td><td>Bộ lọc, ngày, tổng kết quả, số mẫu theo năm</td><td>Có</td></tr>
+          <tr><td><a href="../data/processed/openalex_clean.parquet">openalex_clean.parquet</a></td><td>Bảng đã chuẩn hóa; 1.200 hàng, 63 cột</td><td>Có</td></tr>
+          <tr><td><a href="../data/final/openalex_final.parquet">openalex_final.parquet</a></td><td>Bảng sau feature engineering; 1.200 hàng, 72 cột</td><td>Có</td></tr>
+          <tr><td><a href="../outputs/request/papers.csv">papers.csv</a></td><td>Bảng công trình phục vụ phân tích</td><td>Có</td></tr>
+          <tr><td><a href="../outputs/request/researchers.csv">researchers.csv</a></td><td>Tác giả có định danh trong dữ liệu; chỉ đếm trên mẫu</td><td>Có</td></tr>
+          <tr><td>research_groups.csv, llm_models.csv, datasets.csv, open_source_projects.csv, rankings.csv</td><td>Các bảng chờ thu thập nguồn chuyên biệt</td><td>Hiện chỉ có header; chưa có bản ghi xác minh</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note">
+        <strong>Phạm vi mục 6:</strong> raw JSON hiện có, nhưng dự án chưa có bộ dữ liệu danh sách nhóm nghiên cứu,
+        mô hình LLM, dataset/open-source, ranking hay danh sách thành viên theo nhóm được xác minh từ nguồn
+        chuyên biệt. Vì vậy báo cáo không dựng thêm bảng tên người/nhóm hoặc danh mục mô hình từ suy đoán.
+      </div>
+    </section>
+
+    <section class="section" id="pipeline">
+      <div class="section-heading"><span class="section-number">07</span><h2>Các bước thực hiện (Pipeline)</h2></div>
+      <h3>7.1 Bước 0 — Chuẩn bị môi trường</h3>
+      <p>Dự án dùng Python 3.13.7 trong virtual environment, cấu hình phụ thuộc tại <code>requirements.txt</code>.</p>
+      <h3>7.2 Bước 1 — Thu thập dữ liệu</h3>
+      <p><code>src/scraper/extract.py</code> đếm số công trình mỗi năm, phân quota, gọi API theo cursor, thử lại khi lỗi mạng và ghi JSON cùng collection metadata.</p>
+      <h3>7.3 Bước 2 — Kiểm tra và làm sạch</h3>
+      <p><code>src/cleaner/clean.py</code> bảo đảm cột thiết yếu, chuyển kiểu ngày/số, bóc tách trường dẫn xuất, loại trùng theo ID và lưu Parquet.</p>
+      <h3>7.4 Bước 3 — Chuẩn hóa kiểu dữ liệu</h3>
+      <p>Ngày xuất bản được phân tích bằng pandas; lượt trích dẫn chuyển sang số; các trường nested được đọc có kiểm tra kiểu để tránh giả định dữ liệu luôn đầy đủ.</p>
+      <h3>7.5 Bước 4 — Feature Engineering</h3>
+      <p>Tạo tuổi bài, lượt trích dẫn/năm, mức trích dẫn, chỉ báo quy mô nhóm tác giả, phân nhóm concept heuristic, venue heuristic, độ dài abstract và năm-tháng.</p>
+      <h3>7.6 Bước 5 — EDA</h3>
+      <p>Notebook <code>notebooks/analysis.ipynb</code> và các báo cáo/biểu đồ tổng hợp hỗ trợ thống kê phân bố, xu hướng năm, chủ đề, trích dẫn và cộng tác.</p>
+      <h3>7.7 Bước 6 — Trực quan hóa</h3>
+      <p><code>src/visualization/visualize.py</code> tạo 10 biểu đồ tĩnh theo sáu nhóm và ba biểu đồ Plotly tương tác; ảnh nằm trong <code>outputs/figures/</code>.</p>
+      <h3>7.8 Bước 7 — Nhận xét biểu đồ</h3>
+      <p>Mỗi nhóm được diễn giải theo nội dung thể hiện, xu hướng chính, bất thường, giới hạn và kết luận mô tả; không suy luận nhân quả.</p>
+      <h3>7.9 Bước 8 — Báo cáo tổng hợp</h3>
+      <p>Bản báo cáo HTML này tích hợp số liệu, hình ảnh, liên kết dữ liệu thô và hướng dẫn tái chạy; báo cáo chất lượng dữ liệu có thể xem trong <a href="data_quality_report.html">data_quality_report.html</a>.</p>
+    </section>
+
+    <section class="section" id="rerun">
+      <div class="section-heading"><span class="section-number">08</span><h2>Cách tái chạy từ đầu</h2></div>
+      <p>Mở PowerShell tại thư mục gốc TrainAI, cài dependencies nếu môi trường chưa có, sau đó chạy pipeline:</p>
+      <pre><code>.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python src\main.py</code></pre>
+      <p>
+        Pipeline thực hiện lần lượt Extract → Clean → Features → Visualize → Reports.
+        Lệnh gọi API có thể mất thời gian và sẽ ghi đè các tệp đầu ra theo đường dẫn trong
+        <code>config/config.yaml</code>; nên sao lưu dữ liệu/biểu đồ cần giữ trước khi tái chạy.
+      </p>
+      <p>Để mở bản báo cáo sau khi chạy, dùng trình duyệt với <code>outputs\reports\Tsinghua_AI_Research_Report.html</code>.</p>
+    </section>
+
+    <section class="section" id="principles">
+      <div class="section-heading"><span class="section-number">09</span><h2>Nguyên tắc và giới hạn đã tôn trọng</h2></div>
+      <ul>
+        <li><strong>Không bịa dữ liệu:</strong> các thống kê trong báo cáo tính từ Parquet/raw metadata hiện có; bảng nguồn chưa thu thập không được điền giả.</li>
+        <li><strong>Giữ provenance:</strong> nêu API, bộ lọc, ngày truy vấn, số lượng và liên kết đến raw JSON/metadata.</li>
+        <li><strong>Không đánh đồng mẫu với tổng thể:</strong> quota theo năm và giới hạn 200 bản ghi/năm tạo mẫu có giới hạn, không ngẫu nhiên.</li>
+        <li><strong>Không kết luận nhân quả:</strong> hệ số tương quan chỉ mô tả quan hệ trong mẫu.</li>
+        <li><strong>Minh bạch thiếu dữ liệu:</strong> venue và abstract thiếu được đếm rõ; ba affiliation không hiển thị đúng ID được lưu ý.</li>
+        <li><strong>Phân biệt phân loại:</strong> nhóm chủ đề và top venue là quy tắc heuristic của mã, không phải đánh giá độc lập.</li>
+        <li><strong>Tuân thủ API:</strong> pipeline truy xuất API mở có timeout, retry và delay; không thu thập dữ liệu cá nhân ngoài metadata tác giả học thuật công khai.</li>
+      </ul>
+      <p>
+        Báo cáo cũng có giới hạn: số trích dẫn là số snapshot trong dữ liệu đã lưu; độ phủ từng venue,
+        gán tác giả/affiliation và topic phụ thuộc OpenAlex; năm 2026 chưa đầy đủ; thống kê không thay
+        thế kiểm tra thủ công từng bài hay đánh giá chất lượng nghiên cứu.
+      </p>
+    </section>
+
+    <section class="section" id="conclusion">
+      <div class="section-heading"><span class="section-number">10</span><h2>Kết luận</h2></div>
+      <p>
+        Pipeline TrainAI đã tạo được một tập mẫu có thể tái lập để khám phá công bố AI gắn với
+        Tsinghua University: 1.200 bài từ 32.357 kết quả phù hợp, có dữ liệu raw, bản sạch,
+        đặc trưng, 10 hình tĩnh và ba hình tương tác. Trong mẫu, lượt trích dẫn có phân phối lệch,
+        gần một nửa bài có authorships từ nhiều quốc gia, và Machine Learning là nhóm lớn nhất theo
+        bộ phân loại heuristic đang dùng.
+      </p>
+      <p>
+        Kết quả có giá trị như một báo cáo khám phá dữ liệu, không phải kiểm kê chính thức toàn bộ
+        nghiên cứu AI của trường. Bước tiếp theo để nâng độ tin cậy là thu thập có kiểm chứng các
+        trang nhóm nghiên cứu/nhà nghiên cứu và kho dataset/mô hình của trường, đối chiếu affiliation,
+        rồi lưu ngày snapshot và quy tắc phân loại cho mỗi bản cập nhật.
+      </p>
+    </section>
+
+    <section class="section" id="glossary">
+      <div class="section-heading"><span class="section-number">11</span><h2>Danh mục từ viết tắt</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Viết tắt</th><th>Tiếng Anh</th><th>Diễn giải</th></tr></thead>
+        <tbody>
+          <tr><td>AI</td><td>Artificial Intelligence</td><td>Trí tuệ nhân tạo</td></tr>
+          <tr><td>API</td><td>Application Programming Interface</td><td>Giao diện lập trình ứng dụng</td></tr>
+          <tr><td>CSV</td><td>Comma-Separated Values</td><td>Tệp dữ liệu dạng bảng phân cách bằng dấu phẩy</td></tr>
+          <tr><td>EDA</td><td>Exploratory Data Analysis</td><td>Phân tích khám phá dữ liệu</td></tr>
+          <tr><td>HTML</td><td>HyperText Markup Language</td><td>Ngôn ngữ đánh dấu siêu văn bản</td></tr>
+          <tr><td>JSON</td><td>JavaScript Object Notation</td><td>Định dạng trao đổi dữ liệu</td></tr>
+          <tr><td>LLM</td><td>Large Language Model</td><td>Mô hình ngôn ngữ lớn</td></tr>
+          <tr><td>NLP</td><td>Natural Language Processing</td><td>Xử lý ngôn ngữ tự nhiên</td></tr>
+          <tr><td>OLS</td><td>Ordinary Least Squares</td><td>Bình phương tối thiểu thông thường</td></tr>
+          <tr><td>PDF</td><td>Portable Document Format</td><td>Định dạng tài liệu di động</td></tr>
+          <tr><td>ROR</td><td>Research Organization Registry</td><td>Đăng ký định danh tổ chức nghiên cứu</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="section" id="references">
+      <div class="section-heading"><span class="section-number">12</span><h2>Tài liệu tham khảo</h2></div>
+      <ol class="ref-list">
+        <li>Tsinghua University. <em>About Tsinghua</em>. <a href="https://www.tsinghua.edu.cn/en/About.htm">https://www.tsinghua.edu.cn/en/About.htm</a></li>
+        <li>OpenAlex. <em>Institution record: Tsinghua University (I99065089)</em>. <a href="https://api.openalex.org/institutions/I99065089">https://api.openalex.org/institutions/I99065089</a>. Thông tin tên tổ chức, quốc gia và thành phố được đối chiếu tại bản ghi này.</li>
+        <li>OpenAlex. <em>Works API</em>. <a href="https://api.openalex.org/works">https://api.openalex.org/works</a>. Truy vấn dự án lọc theo institution <code>I99065089</code>, AI subfield <code>1702</code> và ngày xuất bản.</li>
+        <li>OpenAlex. <em>Filtering results</em>. <a href="https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists">Tài liệu cách dùng filter trong API</a>.</li>
+        <li>Dữ liệu và mã nguồn nội bộ dự án TrainAI: <code>config/config.yaml</code>, <code>src/scraper/extract.py</code>, <code>src/cleaner/clean.py</code>, <code>src/feature_engineering/features.py</code>, <code>data/raw/openalex_collection_metadata.json</code> và các tệp Parquet được dẫn tại mục 6.</li>
+        <li>Tài liệu bố cục: <em>Khoa_Học_Dữ_Liệu___Giữa_Kỳ.pdf</em> do người dùng cung cấp; dùng làm mẫu cấu trúc báo cáo.</li>
+      </ol>
+      <p><strong>Thời điểm dữ liệu trong bộ sưu tập:</strong> ngày xuất bản đến 08/10/2026; các số liệu phụ thuộc snapshot OpenAlex được lưu cùng dự án.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      Báo cáo TrainAI · Nghiên cứu AI tại Đại học Thanh Hoa ·
+      <a href="https://api.openalex.org/institutions/I99065089">OpenAlex institution I99065089</a>
+    </div>
+  </footer>
+</body>
+</html>
